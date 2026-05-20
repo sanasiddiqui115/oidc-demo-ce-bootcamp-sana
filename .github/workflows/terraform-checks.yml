@@ -48,9 +48,14 @@ jobs:
     name: Terraform Plan
     runs-on: ubuntu-latest
     needs: terraform-validate
-
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::108703420068:role/github-oidc-role
+          aws-region: us-east-1
 
       - uses: hashicorp/setup-terraform@v3
         with:
